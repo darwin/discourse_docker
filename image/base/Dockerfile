@@ -8,7 +8,9 @@ MAINTAINER Sam Saffron "https://twitter.com/samsaffron"
 RUN echo "debconf debconf/frontend select Teletype" | debconf-set-selections &&\
     apt-get -y update &&\
     apt-get -y upgrade &&\
-    apt-get -y install software-properties-common &&\
+    apt-get -y install software-properties-common wget &&\
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list &&\
+    wget -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add - &&\
     apt-add-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe" &&\
     add-apt-repository -y ppa:rwky/redis &&\
     add-apt-repository -y ppa:nginx/stable &&\
